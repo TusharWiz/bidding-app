@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CustomerServices from "../services/CustomerServices";
+import axios from "axios";
 
 function SignUp(){
 // <!-- component -->
@@ -21,18 +22,34 @@ const addCustomer=(e)=>{
 		lastName,
 		age,
 		email,
-		password,
-		confirmPassword,
-
+		// password,
+		// confirmPassword,
+		phoneNumber
 	  }
+	  
+
+	  //for checking the age of product
+	  if(customer.age<18){
+		alert("You are not eligible to buy this item, please enter the valid age");
+	  }
+	//if password and confirm password should same
+	if(customer.password !== customer.confirmPassword){
+		alert("Passwords do not match. Please make sure they match before submitting.");
+		return;
+	  }
+
 	  alert(JSON.stringify(customer))
 console.log(customer)
-	CustomerServices.create(customer).then((response)=>{
-		console.log("customer added", response.data);
+
+	// CustomerServices.create(customer)
+	axios.post("http://localhost:8080/customer/add",customer).then((response)=>{
+		alert("customer added successfully")
+		// console.log("customer added", response.data);
 		navigate('/login');
 	}).catch((error)=>{
 		console.log("error",error.response);
 	})
+
 }
 
 

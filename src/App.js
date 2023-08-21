@@ -13,6 +13,8 @@ import ProductList from "./page/ProductList"
 import SignUp from "./page/SignUp";
 import ProductList1 from "./page/ProductList1";
 import AddProductByAdmin from "./page/AddProductByAdmin";
+import SelectedProduct from "./page/SelectedProduct";
+import Cart from "./page/Cart";
 function App() {
   const [isLoginPage, setIsLoginPage] = useState(false);
 
@@ -27,6 +29,8 @@ function App() {
         <Route path="/Contact" element={<Aboutus />} />
         <Route path="/products" element={<ProductList1/>} />
         <Route path="/addProduct" element={<AddProductByAdmin/>}/>
+        <Route path={"/selectedProduct/:productId"} element={<SelectedProduct/>}/>
+        <Route path={"/cart"} element={<Cart/>}/>
       </Routes>
       {!isLoginPage && <Footer></Footer>}
     </>

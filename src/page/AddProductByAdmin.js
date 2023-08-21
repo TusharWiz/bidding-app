@@ -28,7 +28,7 @@ const AddProductByAdmin = () => {
     };
     // drop down list
     
-
+    console.log(p.productName)
 
     
     productService.createProduct(product).
@@ -105,7 +105,7 @@ const AddProductByAdmin = () => {
                   <div className="flex text-sm text-gray-600">
                     <label htmlFor="file-upload" className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
                       <span className="">Upload a file</span>
-                      <input id="file-upload" name="file-upload" type="file" className="sr-only" ></input>
+                      <input id="file-upload" name="file-upload" type="file" className="sr-only" value={image} onChange={(p)=>(p.target.value)} ></input>
                     </label>
                     <p className="pl-1 text-white">or drag and drop</p>
                   </div>
@@ -119,7 +119,7 @@ const AddProductByAdmin = () => {
         </div>
 
         <div className="flex justify-end mt-6">
-            <button className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600">Save</button>
+            <button className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600"  onClick={(p)=>saveProduct(p)}>Save</button>
         </div>
     </form>
 </section>
