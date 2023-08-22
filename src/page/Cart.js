@@ -10,7 +10,7 @@ const Cart = () => {
   
     useEffect(() => {
       axios
-        .get(`http://localhost:8080/cart/cartDetails/${1}`)
+        .get(`http://localhost:8080/cart/cartDetails/${4}`)
         .then((response) => {
           setProducts(response.data.items.map((item) => item.product));
           setCart(response.data);
@@ -21,6 +21,17 @@ const Cart = () => {
         });
     }, []);
 
+    const handleRemoveProduct=(productId)=>{
+        axios.put(`http://localhost:8080/cart/removeItem/${4}/${productId}`)
+        .then((response)=>{
+          setProducts(response.data.items.map((item) => item.product));
+          setCart(response.data);
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
     
     return (
       <>
@@ -49,7 +60,7 @@ const Cart = () => {
                         <p class="text-sm"><b><u>{product.price} INR</u></b> </p>
                         <button
             class="middle none center rounded-lg bg-red-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-950 transition-all hover:shadow-lg hover:shadow-black focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-            data-ripple-light="true"
+            data-ripple-light="true" onClick ={()=>handleRemoveProduct(product.id)}
             
         >
             Remove
@@ -85,7 +96,7 @@ const Cart = () => {
                   <p class="text-sm text-gray-700">including GST</p>
                 </div>
               </div>
-              <button class="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">
+              <button class="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600" >
                 Check out
               </button>
             </div>
