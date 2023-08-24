@@ -14,6 +14,7 @@ function ProductList1() {
     axios.get('http://localhost:8080/product')
 
       .then(response => {
+        
         setProducts(response.data);
         setImages(response.data.map(product => product.img));
 
@@ -21,6 +22,7 @@ function ProductList1() {
         // alert(response.data.name)
       })
       .catch(error => {
+        alert("Hello")
         console.log(error);
       });
   }, []);
