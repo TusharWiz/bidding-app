@@ -15,6 +15,7 @@ import ProductList1 from "./page/ProductList1";
 import AddProductByAdmin from "./page/AddProductByAdmin";
 import SelectedProduct from "./page/SelectedProduct";
 import Cart from "./page/Cart";
+import Address from "./page/Address"
 function App() {
   const [isLoginPage, setIsLoginPage] = useState(false);
 
@@ -31,6 +32,7 @@ function App() {
         <Route path="/addProduct" element={<AddProductByAdmin/>}/>
         <Route path={"/selectedProduct/:productId"} element={<SelectedProduct/>}/>
         <Route path={"/cart"} element={<Cart/>}/>
+        <Route path={"/address"} element={<Address/>} />
       </Routes>
       {!isLoginPage && <Footer></Footer>}
     </>

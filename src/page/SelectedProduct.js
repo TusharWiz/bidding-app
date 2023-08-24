@@ -47,8 +47,9 @@ import axios from "axios";
 
     const handleProductClick = (productId) => {
         const customerId=1;
+        // alert(productId);
         // Redirect to another page with the product ID as a parameter
-        axios.post(`http://localhost:8080/cart/addProduct/${productId}/${1}`).then((response)=>{
+        axios.post(`http://localhost:8080/cart/addProduct/${productId}/${4}`).then((response)=>{
             alert("added to cart");
         }).catch(error=>{
             console.log("error" +error);
@@ -126,7 +127,7 @@ import axios from "axios";
                   {/* <!-- Sizes --> */}
                   
 
-                  <button type="submit" className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" onClick={handleProductClick}>Add to bag</button>
+                  <button type="submit" className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" onClick={() => handleProductClick(productId)}>Add to bag</button>
                 </form>
               </section>
             </div>

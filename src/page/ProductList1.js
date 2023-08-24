@@ -7,7 +7,7 @@ function ProductList1() {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [images, setImages] = useState([]);
-
+  const [sortByPrice, setSortByPrice] = useState("");
   const [id,setId]=useState();
 
   useEffect(() => {
@@ -30,10 +30,35 @@ function ProductList1() {
     navigate(`/selectedProduct/${productId}`);
   };
 
+  const handleSortByPrice = (event) => {
+    const sortValue = event.target.value;
+    setSortByPrice(sortValue);
+
+    let sortedProducts = [...products];
+
+    if (sortValue === "Minimum to Maximum price") {
+      sortedProducts.sort((a, b) => a.price - b.price);
+    } else if (sortValue === "Maximum to Minimum price") {
+      sortedProducts.sort((a, b) => b.price - a.price);
+    }
+
+    setProducts(sortedProducts);
+  };
+
   return (
     <div className="bg-white">
+      
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-        <h2 className="sr-only">Products</h2>
+        <div className="border border-gray-300 rounded-lg p-4 mb-4 bg-blue-200  ">
+        <b>Sort By price :&nbsp;&nbsp;&nbsp;</b>
+          <select  onChange={handleSortByPrice} value={sortByPrice}>
+            <option></option>
+          <option>Minimum to Maximum price</option>
+          <option>Maximum to Minimum price</option>
+          
+          </select>
+        </div>
+      
         <div className="flex flex-wrap" >
           {products.map((product) => (<div className="w-1/3 p-4" >
             <a href={product.id} className="group"
@@ -56,4 +81,4 @@ function ProductList1() {
   );
 };
 
-export default ProductList1;
+export default ProductList1; 

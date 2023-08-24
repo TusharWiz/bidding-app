@@ -1,5 +1,6 @@
 import { useState,useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 
 const Cart = () => {
@@ -7,10 +8,10 @@ const Cart = () => {
     const [cart, setCart] = useState([]);
     const [customer, setCustomer] = useState([]);
     const [name, setName] = useState("");
-  
+    const navigate= useNavigate();  
     useEffect(() => {
       axios
-        .get(`http://localhost:8080/cart/cartDetails/${1}`)
+        .get(`http://localhost:8080/cart/cartDetails/${4}`)
         .then((response) => {
           setProducts(response.data.items.map((item) => item.product));
           setCart(response.data);
@@ -21,7 +22,72 @@ const Cart = () => {
         });
     }, []);
 
-    
+    const handleRemoveProduct=(productId)=>{
+        axios.put(`http://localhost:8080/cart/removeItem/${4}/${productId}`)
+        .then((response)=>{
+          setProducts(response.data.items.map((item) => item.product));
+          setCart(response.data);
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+    const loadScript = (src) => {
+      return new Promise((resolve) => {
+        const script = document.createElement("script");
+        script.src = src;
+  
+        script.onload = () => {
+          resolve(true);
+        };
+  
+        script.onerror = () => {
+          resolve(false);
+        };
+  
+        document.body.appendChild(script);
+      });
+    };
+  
+    // Function to display the Razorpay payment form
+    const displayRazorPay = async (amount) => {
+     
+      try{
+
+      
+
+        const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
+
+        if (!res) {
+          alert("Failed to load Razorpay script. Please check your internet connection.");
+          return;
+        }
+  
+      const options = {
+        key: "rzp_test_hRHaEIhkpd6odG",
+        currency: "INR",
+        amount: amount * 100,
+        name: "Dream Deal",
+        description: "Congratulations",
+        handler: function (response) {
+          alert("Payment successful");
+          // Redirect or navigate to a success page
+          navigate("/address");
+        },
+        prefill: {
+          name: "Dream Deal",
+        },
+      };
+  
+      const paymentObject = new window.Razorpay(options);
+    paymentObject.open();}
+      catch (error) {
+        console.error("An error occurred while displaying Razorpay:", error);
+        alert("An error occurred while displaying Razorpay. Please try again.");
+      }
+    };
+  
     return (
       <>
         <div class="h-screen bg-gray-100 pt-20">
@@ -49,7 +115,7 @@ const Cart = () => {
                         <p class="text-sm"><b><u>{product.price} INR</u></b> </p>
                         <button
             class="middle none center rounded-lg bg-red-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-950 transition-all hover:shadow-lg hover:shadow-black focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-            data-ripple-light="true"
+            data-ripple-light="true" onClick ={()=>handleRemoveProduct(product.id)}
             
         >
             Remove
@@ -85,7 +151,7 @@ const Cart = () => {
                   <p class="text-sm text-gray-700">including GST</p>
                 </div>
               </div>
-              <button class="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">
+              <button class="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600"  onClick={()=>displayRazorPay(cart.totalCartPrice + 100 + cart.totalCartPrice * 0.18)}>
                 Check out
               </button>
             </div>
