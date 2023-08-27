@@ -48,6 +48,7 @@ function SelectedProduct() {
     
     // alert(productId);
     // Redirect to another page with the product ID as a parameter
+    //TODO add user id
     axios
       .post(`http://localhost:8080/cart/addProduct/${productId}/${4}`)
       .then((response) => {

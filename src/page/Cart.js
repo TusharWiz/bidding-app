@@ -11,6 +11,7 @@ const Cart = () => {
     const navigate= useNavigate();  
     useEffect(() => {
       axios
+      //TODO user id
         .get(`http://localhost:8080/cart/cartDetails/${4}`)
         .then((response) => {
           setProducts(response.data.items.map((item) => item.product));
@@ -23,7 +24,7 @@ const Cart = () => {
     }, []);
 
     const handleRemoveProduct=(productId)=>{
-      
+      //TODO user id
         axios.put(`http://localhost:8080/cart/removeItem/${4}/${productId}`)
         .then((response)=>{
           setProducts(response.data.items.map((item) => item.product));
