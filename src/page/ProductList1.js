@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"; 
+import jwt_decode from 'jwt-decode';
 
 function ProductList1() {
 
@@ -17,15 +18,18 @@ function ProductList1() {
         
         setProducts(response.data);
         setImages(response.data.map(product => product.img));
-
+        
         console.log(response.data)
         // alert(response.data.name)
       })
       .catch(error => {
-        alert("Hello")
+        alert("Fetching of products failed")
         console.log(error);
       });
   }, []);
+
+  console.log("this is local storage "+localStorage.getItem("token"))
+  const userid = localStorage.getItem("user");
 
   const handleProductClick = (productId) => {
     // Redirect to another page with the product ID as a parameter

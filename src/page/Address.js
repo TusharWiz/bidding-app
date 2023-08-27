@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import axios from 'axios';
-import backgroundImg from '../component/stock-vector-freight-or-cargo-delivery-tracking-or-navigation-route-on-mobile-phone-vector-illustration-flat-1500288605.jpg'
+
 const Address = () => {
 const[address,setAddress]=useState('');
 const[street,setStreet]=useState('');
@@ -18,9 +18,11 @@ const handleSubmit=(e)=>{
 
     axios.post(`http://localhost:8080/address`,addresses)
     .then((response)=>{
+		alert(JSON.stringify(addresses))
         alert("added to address table")
         console.log("added to address table");
     }).catch((error)=>{
+		alert(JSON.stringify(addresses))
         alert("error ocuured");
         console.log("error ocuured");
     })
@@ -39,8 +41,7 @@ const handleSubmit=(e)=>{
 					{/* <!-- Col --> */}
 					<div
 						className="w-full h-auto bg-white-400 hidden lg:block lg:w-5/12 bg-cover rounded-l-lg"
-						//style="background-image: url('')"
-						style={{ backgroundImage: `url(${backgroundImg})` }}
+						//style="background-image: url('https://source.unsplash.com/Mv9hjnEUHR4/600x800')"
 					></div>
 					{/* <!-- Col --> */}
 					<div className="w-full lg:w-7/12 bg-white p-5 rounded-lg lg:rounded-l-none">

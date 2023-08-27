@@ -22,8 +22,8 @@ const addCustomer=(e)=>{
 		lastName,
 		age,
 		email,
-		// password,
-		// confirmPassword,
+		password,
+		 confirmPassword,
 		phoneNumber
 	  }
 	  
@@ -42,11 +42,12 @@ const addCustomer=(e)=>{
 console.log(customer)
 
 	// CustomerServices.create(customer)
-	axios.post("http://localhost:8080/customer/add",customer).then((response)=>{
+	axios.post("http://localhost:8080/api/auth/register",customer).then((response)=>{
 		alert("customer added successfully")
 		// console.log("customer added", response.data);
 		navigate('/login');
 	}).catch((error)=>{
+		alert("Error ")
 		console.log("error",error.response);
 	})
 

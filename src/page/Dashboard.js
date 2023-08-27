@@ -1,42 +1,192 @@
-
-
-import React from 'react'
+import React, { useEffect } from "react";
+import Button from "../component/Button";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function Dashboard() {
+  const navigate = useNavigate();
+  // useEffect(() => {
+  //   const opcionesConDesplegable = document.querySelectorAll(".opcion-con-desplegable");
+    
+  //   opcionesConDesplegable.forEach((opcion) => {
+  //     opcion.addEventListener("click", () => {
+  //       const desplegable = opcion.querySelector(".desplegable");
+  //       desplegable.classList.toggle("hidden");
+  //     });
+  //   });
+  // }, []);
+
+  const handleCart = ()=>{
+    alert("cart")
+    navigate("/cart")
+  }
+
+  const handleSignOut = ()=>{
+    alert("Sign out")
+    navigate("/login")
+  }
+
   return (
     <>
-    {/* <div className="flex items-center md:order-2">
-      <button type="button" className="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
-        <span className="sr-only">Open user menu</span>
-        <img className="w-8 h-8 rounded-full" src="/docs/images/people/profile-picture-3.jpg" alt="user photo"/>
-      </button>
      
-      <div className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
-        <div className="px-4 py-3">
-          <span className="block text-sm text-gray-900 dark:text-white">Bonnie Green</span>
-          <span className="block text-sm  text-gray-500 truncate dark:text-gray-400">name@flowbite.com</span>
+      <nav className="bg-blue-500 p-4 flex items-center justify-between">
+        <div>
+          <h1 className="text-white text-xl font-semibold ml-4">DreamDeal</h1>
         </div>
-        <ul className="py-2" aria-labelledby="user-menu-button">
-          <li>
-            <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
-          </li>
-          <li>
-            <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</a>
-          </li>
-          <li>
-            <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Earnings</a>
-          </li>
-          <li>
-            <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
-          </li>
-        </ul>
-      </div> */}
+        <div className="flex items-center space-x-4">
+          <i className="fas fa-user-circle text-white text-2xl">tushar</i>
+        </div>
+      </nav>
+      <div className="flex h-screen">
 
+      <aside className="bg-gray-800 text-white w-64 min-h-screen p-4">
+        <nav>
+          <ul className="space-y-2">
+            <li className="opcion-con-desplegable">
+              <div className="flex items-center justify-between p-2 hover:bg-gray-700">
+                <div className="flex items-center">
+                  <i className="fas fa-calendar-alt mr-2"></i>
+                  <span>Update Profile</span>
+                </div>
+                <i className="fas fa-chevron-down text-xs"></i>
+              </div>
+              {/* <ul className="desplegable ml-4 hidden">
+                <li>
+                  <a href="#" className="block p-2 hover:bg-gray-700 flex items-center">
+                    <i className="fas fa-chevron-right mr-2 text-xs"></i>
+                    Gestion de citas
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="block p-2 hover:bg-gray-700 flex items-center">
+                    <i className="fas fa-chevron-right mr-2 text-xs"></i>
+                    Polizas
+                  </a>
+                </li>
+              </ul> */}
+            </li>
+            <li className="opcion-con-desplegable">
+              <div className="flex items-center justify-between p-2 hover:bg-gray-700">
+                <div className="flex items-center">
+                  <i className="fas fa-money-bill-wave mr-2"></i>
+                  <button onClick={handleCart}>My Cart</button>
+                </div>
+                <i className="fas fa-chevron-down text-xs"></i>
+              </div>
+              {/* <ul className="desplegable ml-4 hidden">
+                <li>
+                  <a href='/cart' className="block p-2 hover:bg-gray-700 flex items-center">
+                    <i className="fas fa-chevron-right mr-2 text-xs"></i>
+                    Tratamientos
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="block p-2 hover:bg-gray-700 flex items-center">
+                    <i className="fas fa-chevron-right mr-2 text-xs"></i>
+                    Gastos
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="block p-2 hover:bg-gray-700 flex items-center">
+                    <i className="fas fa-chevron-right mr-2 text-xs"></i>
+                    Facturas
+                  </a>
+                </li>
+              </ul> */}
+            </li>
+            <li className="opcion-con-desplegable">
+              <div className="flex items-center justify-between p-2 hover:bg-gray-700">
+                <div className="flex items-center">
+                  <i className="fas fa-chart-bar mr-2"></i>
+                  <button onClick={handleSignOut}>Sign Out</button>
+                </div>
+                <i className="fas fa-chevron-down text-xs"></i>
+              </div>
+              {/* <ul className="desplegable ml-4 hidden">
+                <li>
+                  <a href="#" className="block p-2 hover:bg-gray-700 flex items-center">
+                    <i className="fas fa-chevron-right mr-2 text-xs"></i>
+                    Presupuestos
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="block p-2 hover:bg-gray-700 flex items-center">
+                    <i className="fas fa-chevron-right mr-2 text-xs"></i>
+                    Informe médico
+                  </a>
+                </li>
+              </ul> */}
+            </li>
+            <li className="opcion-con-desplegable">
+              <div className="flex items-center justify-between p-2 hover:bg-gray-700">
+                <div className="flex items-center">
+                  <i className="fas fa-file-alt mr-2"></i>
+                  <span>Guidelines</span>
+                </div>
+                <i className="fas fa-chevron-down text-xs"></i>
+              </div>
+              {/* <ul className="desplegable ml-4 hidden">
+                <li>
+                  <a href="#" className="block p-2 hover:bg-gray-700 flex items-center">
+                    <i className="fas fa-chevron-right mr-2 text-xs"></i>
+                    Purchase guide
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="block p-2 hover:bg-gray-700 flex items-center">
+                    <i className="fas fa-chevron-right mr-2 text-xs"></i>
+                    Terms and Conditions
+                  </a>
+                </li>
+              </ul> */}
+            </li>
+          </ul>
+        </nav>
+      </aside>
+      <div className="flex-grow p-4">
+        {/* Dashboard content */}
+       
+<div class="flex items-center h-screen w-full justify-center">
 
+<div class="max-w-xs ">
+    <div class="bg-white shadow-xl rounded-lg py-3">
+        <div class="photo-wrapper p-2">
+            <img class="w-32 h-32 rounded-full mx-auto" src="https://www.gravatar.com/avatar/2acfb745ecf9d4dccb3364752d17f65f?s=260&d=mp" alt="John Doe"/>
+        </div>
+        <div class="p-2">
+            <h3 class="text-center text-xl text-gray-900 font-medium leading-8">Joh Doe</h3>
+            <div class="text-center text-gray-400 text-xs font-semibold">
+                <p>Web Developer</p>
+            </div>
+            <table class="text-xs my-10">
+                <tbody><tr>
+                    <td class="px-2 py-2 text-gray-500 font-semibold">Address</td>
+                    <td class="px-2 py-2">Chatakpur-3, Dhangadhi Kailali</td>
+                </tr>
+                <tr>
+                    <td class="px-2 py-2 text-gray-500 font-semibold">Phone</td>
+                    <td class="px-2 py-2">+977 9955221114</td>
+                </tr>
+                <tr>
+                    <td class="px-2 py-2 text-gray-500 font-semibold">Email</td>
+                    <td class="px-2 py-2">john@exmaple.com</td>
+                </tr>
+            </tbody></table>
 
-    
+            <div class="text-center my-3">
+                <a class="text-xs text-indigo-500 italic hover:underline hover:text-indigo-600 font-medium" href="#">View Profile</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</div>
+      </div>
+    </div>        
+          
+      
     </>
-  )
+  );
 }
 
 export default Dashboard;

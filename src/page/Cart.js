@@ -23,6 +23,7 @@ const Cart = () => {
     }, []);
 
     const handleRemoveProduct=(productId)=>{
+      
         axios.put(`http://localhost:8080/cart/removeItem/${4}/${productId}`)
         .then((response)=>{
           setProducts(response.data.items.map((item) => item.product));
@@ -55,10 +56,10 @@ const Cart = () => {
      
       try{
 
-      
-
+        
+        alert(amount)
         const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
-
+        alert(res)
         if (!res) {
           alert("Failed to load Razorpay script. Please check your internet connection.");
           return;
@@ -146,12 +147,12 @@ const Cart = () => {
                 <p class="text-lg font-bold">Total</p>
                 <div class="">
                   <p class="mb-1 text-lg font-bold">
-                    {cart.totalCartPrice + 100 + cart.totalCartPrice * 0.18} INR
+                    {cart.totalCartPrice + 100 } INR
                   </p>
                   <p class="text-sm text-gray-700">including GST</p>
                 </div>
               </div>
-              <button class="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600"  onClick={()=>displayRazorPay(cart.totalCartPrice + 100 + cart.totalCartPrice * 0.18)}>
+              <button class="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600"  onClick={()=>displayRazorPay(cart.totalCartPrice + 100 )}>
                 Check out
               </button>
             </div>
