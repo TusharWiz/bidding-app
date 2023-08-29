@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import jwt_decode from 'jwt-decode';
 function SelectedProduct() {
   const navigate = useNavigate();
   const { productId } = useParams();
@@ -44,19 +45,20 @@ function SelectedProduct() {
   }, [productId]);
 
   const handleProductClick = (productId) => {
-    const customerId = 1;
-    
-    // alert(productId);
-    // Redirect to another page with the product ID as a parameter
-    //TODO add user id
-    axios
-      .post(`http://localhost:8080/cart/addProduct/${productId}/${4}`)
+    const userId = localStorage.getItem("token");
+    const decodedToken = jwt_decode(userId);
+    const customerId = decodedToken.userId;
+
+    alert(customerId)
+
+    axios.post(`http://localhost:8080/cart/addProduct/${productId}/${customerId}`)
       .then((response) => {
-        alert("added to cart");
+        alert("Added to cart");
       })
       .catch((error) => {
-        console.log("error" + error);
+        console.log(error);
       });
+
     navigate(`/products`);
   };
 

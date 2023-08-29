@@ -7,6 +7,7 @@ import Button from "../component/Button";
 import jwt_decode from 'jwt-decode';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Login({ setIsLoginPage }) {
     const [username,setUsername] = useState("");
@@ -29,9 +30,13 @@ function Login({ setIsLoginPage }) {
             getUserIdFromToken(response.data.token)
 
         }).then(()=>{
-            navigate(`/home`);
+            const role = localStorage.getItem("role");
+        if(role === "ROLE_NORMAL"){
+            navigate("/dashBoard")
+        }
+            //navigate(`/`);
         }).catch((error)=>{
-            alert("Error")
+            alert("Please check your user name or password")
         })
     }
 
@@ -39,9 +44,12 @@ function Login({ setIsLoginPage }) {
     const getUserIdFromToken = (token) => {
         const decodedToken = jwt_decode(token);
         localStorage.setItem("token",token)
-        console.log(decodedToken.userId);
+        localStorage.setItem("role",decodedToken.role[0].name)
+        console.log(decodedToken.role[0].name);
+
     }
 
+        
 
     console.log(localStorage.getItem("token"))
     
@@ -93,7 +101,11 @@ function Login({ setIsLoginPage }) {
             data-ripple-light="true" onClick={(e)=>handleOnClick(e)}
         >
             Login
-        </button>
+        </button><br /><h1>If not registered Please Sign up</h1><br />
+        <Link to="/signup">
+        <button  class="middle none center rounded-lg bg-blue-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-950 transition-all hover:shadow-lg hover:shadow-black focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            data-ripple-light="true" onClick={() => setIsLoginPage(true)}>Sign up</button>
+      </Link>
                     </div>
                 </div>
             </div>

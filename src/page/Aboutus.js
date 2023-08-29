@@ -1,56 +1,65 @@
-import React from 'react'
-// TODO add photos with animation
-const Aboutus = () => {
-    return (
-        <div className="2xl:container 2xl:mx-auto lg:py-16 lg:px-20 md:py-12 md:px-6 py-9 px-4">
-            <div className="flex flex-col lg:flex-row justify-between gap-8">
-                <div className="w-full lg:w-5/12 flex flex-col justify-center">
-                    <h1 className="text-3xl lg:text-4xl font-bold leading-9 text-gray-800 pb-4">About Us</h1>
-                    <p className="font-normal text-base leading-6 text-gray-600 ">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum.In the first place we have granted to God, and by this our present charter confirmed for us and our heirs forever that the English Church shall be free, and shall have her rights entire, and her liberties inviolate; and we will that it be thus observed; which is apparent from</p>
-                </div>
-                <div className="w-full lg:w-8/12 ">
-                    <img className="w-full h-full" src="https://i.ibb.co/FhgPJt8/Rectangle-116.png" alt="A group of People" />
-                </div>
-            </div>
+import React from "react";
+import "../index.css";
 
-            <div className="flex lg:flex-row flex-col justify-between gap-8 pt-12">
-                <div className="w-full lg:w-5/12 flex flex-col justify-center">
-                    <h1 className="text-3xl lg:text-4xl font-bold leading-9 text-gray-800 pb-4">Our Story</h1>
-                    <p className="font-normal text-base leading-6 text-gray-600 ">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum.In the first place we have granted to God, and by this our present charter confirmed for us and our heirs forever that the English Church shall be free, and shall have her rights entire, and her liberties inviolate; and we will that it be thus observed; which is apparent from</p>
-                </div>
-                <div className="w-full lg:w-8/12 lg:pt-8">
-                    <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 lg:gap-4 shadow-lg rounded-md">
-                        <div className="p-4 pb-6 flex justify-center flex-col items-center">
-                            <img className="md:block hidden" src="https://i.ibb.co/FYTKDG6/Rectangle-118-2.png" alt="Alexa featured Img" />
-                            <img className="md:hidden block" src="https://i.ibb.co/zHjXqg4/Rectangle-118.png" alt="Alexa featured Img" />
-                            <p className="font-medium text-xl leading-5 text-gray-800 mt-4">TUSHAR</p>
-                        </div>
-                        <div className="p-4 pb-6 flex justify-center flex-col items-center">
-                            <img className="md:block hidden" src="https://i.ibb.co/fGmxhVy/Rectangle-119.png" alt="Olivia featured Img" />
-                            <img className="md:hidden block" src="https://i.ibb.co/NrWKJ1M/Rectangle-119.png" alt="Olivia featured Img" />
-                            <p className="font-medium text-xl leading-5 text-gray-800 mt-4">HARSHAD</p>
-                        </div>
-                        <div className="p-4 pb-6 flex justify-center flex-col items-center">
-                            <img className="md:block hidden" src="https://i.ibb.co/Pc6XVVC/Rectangle-120.png" alt="Liam featued Img" />
-                            <img className="md:hidden block" src="https://i.ibb.co/C5MMBcs/Rectangle-120.png" alt="Liam featued Img" />
-                            <p className="font-medium text-xl leading-5 text-gray-800 mt-4">VARAD</p>
-                        </div>
-                        <div className="p-4 pb-6 flex justify-center flex-col items-center">
-                            <img className="md:block hidden" src="https://i.ibb.co/7nSJPXQ/Rectangle-121.png" alt="Elijah featured img" />
-                            <img className="md:hidden block" src="https://i.ibb.co/ThZBWxH/Rectangle-121.png" alt="Elijah featured img" />
-                            <p className="font-medium text-xl leading-5 text-gray-800 mt-4">NIKHIL</p>
-                        </div>
-                        <div className="p-4 pb-6 flex justify-center flex-col items-center">
-                            <img className="md:block hidden" src="https://i.ibb.co/7nSJPXQ/Rectangle-121.png" alt="Elijah featured img" />
-                            <img className="md:hidden block" src="https://i.ibb.co/ThZBWxH/Rectangle-121.png" alt="Elijah featured img" />
-                            <p className="font-medium text-xl leading-5 text-gray-800 mt-4">VIPUL</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+function TeamMember({ name, email }) {
+  return (
+    <div className="column">
+      <div className="card bg-white shadow-lg p-4">
+        <div className="container">
+          <h2>{name}</h2>
+          <a href={`mailto:${email}`}>{email}</a>
         </div>
-    );
-};
+      </div>
+    </div>
+  );
+}
 
-export default Aboutus;
+function OurTeam() {
+  return (
+    <div>
+      <h2
+        style={{ textAlign: "center" }}
+        className="text-4xl mt-4 mb-4 font-bold tracking-wider"
+      >
+        Our Team
+      </h2>
+      <div className="flex flex-wrap justify-center items-center text-xl font-medium">
+        <TeamMember name="Harshad Lawar" email="harshad.lawar04@gmail.com" />
+        <TeamMember name="Nikhil Chaudhari" email="nikhil@gmail.com" />
+        <TeamMember name="Tushar Satalkar" email="tushar@gmail.com" />
+        <TeamMember name="Varad Deshmukh" email="varad@gmail.com" />
+        <TeamMember name="Vipul Sharma" email="vipul@gmail.com" />
+      </div>
+    </div>
+  );
+}
 
+function App() {
+  return (
+    <div className="bg-primary text-blue">
+      <div className="about-section">
+        <h1 className="text-black text-center text-4xl mt-10 mb-10 font-bold tracking-wider ">
+          About Us
+        </h1>
+        <p className="text-black leading-8 text-xl">
+          Dream Deal is a web-based application that allows users to buy a
+          particular art product.Utilized Spring Boot and Java for backend
+          development, ensuring seamless functionality .Integrated React.js to
+          enhance user interaction and engagement.Managed the data securely
+          through MySQL, maintaining data integrity .The application has a user
+          management system, a system for managing artworks, a system for buying
+          artworks.The application is designed to be user-friendly and secure.
+        </p>
+        <p className="text-black text-center text-4xl mt-6 mb-10 font-bold tracking-wider ">
+          Our Future Plan
+        </p>
+        <p className="text-black text-xl text-center">
+          Adding a bidding functionality to allow users to compete for artworks.
+        </p>
+      </div>
+      <OurTeam />
+    </div>
+  );
+}
+
+export default App;

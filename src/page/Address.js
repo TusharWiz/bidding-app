@@ -1,31 +1,47 @@
 import React from 'react'
 import { useState } from 'react'
 import axios from 'axios';
+import jwt_decode from 'jwt-decode';
+import { useNavigate } from 'react-router-dom';
 
 const Address = () => {
 const[address,setAddress]=useState('');
 const[street,setStreet]=useState('');
 const[city,setCity]=useState('');
 const[pinCode,setPinCode]=useState('');
-
+ const[customer,setCustomer]=useState('');
+ const navigate = useNavigate();
 const handleSubmit=(e)=>{
     const addresses={
         address,
         street,
         city,
         pinCode
+		//  customer
     }
+	const userId = localStorage.getItem("token");
+      const decodedToken = jwt_decode(userId);
+      const customerId = decodedToken.userId;
 
-    axios.post(`http://localhost:8080/address`,addresses)
+	//   axios.get(`http://localhost:8080/customer/${customerId}`).then((response)=>{
+	// 	setCustomer(response.data);
+	// 	alert("in get customer");
+	//   }).catch((error)=>{
+	// 	alert("error in fetching customer");
+	//   }).then(
+	alert(customerId)
+    axios.post(`http://localhost:8080/address/${customerId}`,addresses)
     .then((response)=>{
 		alert(JSON.stringify(addresses))
         alert("added to address table")
         console.log("added to address table");
+	
     }).catch((error)=>{
 		alert(JSON.stringify(addresses))
         alert("error ocuured");
         console.log("error ocuured");
     })
+	//   )
 
     
 }

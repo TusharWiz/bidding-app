@@ -1,6 +1,7 @@
 import { useState,useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import jwt_decode from 'jwt-decode';
 
 
 const Cart = () => {
@@ -10,9 +11,14 @@ const Cart = () => {
     const [name, setName] = useState("");
     const navigate= useNavigate();  
     useEffect(() => {
+
+      const userId = localStorage.getItem("token");
+    const decodedToken = jwt_decode(userId);
+    const customerId = decodedToken.userId;
+    alert(customerId)
       axios
       //TODO user id
-        .get(`http://localhost:8080/cart/cartDetails/${4}`)
+        .get(`http://localhost:8080/cart/cartDetails/${customerId}`)
         .then((response) => {
           setProducts(response.data.items.map((item) => item.product));
           setCart(response.data);
@@ -23,18 +29,25 @@ const Cart = () => {
         });
     }, []);
 
-    const handleRemoveProduct=(productId)=>{
-      //TODO user id
-        axios.put(`http://localhost:8080/cart/removeItem/${4}/${productId}`)
-        .then((response)=>{
+    const handleRemoveProduct = (productId) => {
+      const userId = localStorage.getItem("token");
+      const decodedToken = jwt_decode(userId);
+      const customerId = decodedToken.userId;
+      alert(customerId);
+      alert(productId);
+      axios
+         .put(`http://localhost:8080/cart/removeItem/${customerId}/${productId}`)
+        
+        .then((response) => {
           setProducts(response.data.items.map((item) => item.product));
           setCart(response.data);
           console.log(response.data);
         })
         .catch((error) => {
+          alert("error ocurred in remove product")
           console.log(error);
         });
-    }
+    };
     const loadScript = (src) => {
       return new Promise((resolve) => {
         const script = document.createElement("script");
