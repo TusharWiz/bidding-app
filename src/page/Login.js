@@ -45,6 +45,7 @@ function Login({ setIsLoginPage }) {
         const decodedToken = jwt_decode(token);
         localStorage.setItem("token",token)
         localStorage.setItem("role",decodedToken.role[0].name)
+        console.log(decodedToken.userId)
         console.log(decodedToken.role[0].name);
 
     }

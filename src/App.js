@@ -14,7 +14,10 @@ import Cart from "./page/Cart";
 import Dashboard from "./page/Dashboard";
 import Address from "./page/Address";
 import ContactUs from "./page/ContactUs";
-
+import Protected from "./page/Protected";
+import AdminDashboard from "./page/AdminDashboard";
+import UpdateProfile from "./page/UpdateProfile";
+import GetAllCustomers from "./page/GetAllCustomers";
 function App() {
   const [isLoginPage, setIsLoginPage] = useState(false);
   const location = useLocation();
@@ -26,21 +29,25 @@ function App() {
       )}
       <Routes>
       
-        <Route path="/" element={<HeroSection />} />
-        <Route path="/about" element={<AboutUs />} />
+        <Route path="/" element={< Protected Component={HeroSection} />} />
+        
         <Route
           exact path="/login"
           element={<Login setIsLoginPage={setIsLoginPage} />}
         />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/about" element={<AboutUs />} />
-        <Route path="/products" element={<ProductList1 />} />
+        <Route path="/about" element={<Protected Component={AboutUs} />} />
+        <Route path="/products" element={< Protected Component={ProductList1} />} />
         <Route path="/addProduct" element={<AddProductByAdmin />} />
         <Route path={"/selectedProduct/:productId"} element={<SelectedProduct />} />
         <Route path={"/cart"} element={<Cart />} />
-        <Route path="/dashBoard" element={<Dashboard />} />
-        <Route path={"/address"} element={<Address />} />
-        <Route  path={'/contact'}element={<ContactUs/>}/>
+        <Route path="/dashBoard" element={<Protected Component={Dashboard} />} />
+        <Route path={"/address"} element={<Protected Component={Address} />} />
+        <Route  path={'/contact'}element={<Protected Component={ContactUs}/>}/>
+        {/* <Route   path='/admin'    element={<Protected Component= {AdminDashboard}/>}/> */}
+        <Route path={'/admin'} element={<AdminDashboard/>}/>
+        <Route path={'/update'} element={<UpdateProfile/>}/>
+        <Route path={'/getCustomers'} element={<GetAllCustomers/>}/>
       </Routes>
       {!isLoginPage && <Footer />}
     </>

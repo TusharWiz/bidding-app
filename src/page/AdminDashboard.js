@@ -3,7 +3,7 @@ import Button from "../component/Button";
 import { Navigate, useNavigate } from "react-router-dom";
 import dashboardImage from "./Dashboard.jpg";
 
-function Dashboard() {
+function AdminDashboard() {
   const navigate = useNavigate();
   // useEffect(() => {
   //   const opcionesConDesplegable = document.querySelectorAll(".opcion-con-desplegable");
@@ -16,20 +16,15 @@ function Dashboard() {
   //   });
   // }, []);
 
-  const handleCart = ()=>{
-    alert("cart")
-    navigate("/cart")
-  }
+ const handleGetCustomers=()=>{
+    alert("get customers")
+    navigate('');
+ }
 
   const handleSignOut = ()=>{
     alert("Sign out")
     localStorage.removeItem("token")
     navigate("/login")
-  }
-
-  const handleUpdate=()=>{
-    alert("update")
-    navigate('/update')
   }
 
   return (
@@ -52,7 +47,7 @@ function Dashboard() {
               <div className="flex items-center justify-between p-2 hover:bg-gray-700">
                 <div className="flex items-center">
                   <i className="fas fa-calendar-alt mr-2"></i>
-                  <button onClick={handleUpdate}>Update Profile</button>
+                  <button onClick={handleGetCustomers}>Get All Customers</button>
                 </div>
                 <i className="fas fa-chevron-down text-xs"></i>
               </div>
@@ -71,35 +66,7 @@ function Dashboard() {
                 </li>
               </ul> */}
             </li>
-            <li className="opcion-con-desplegable">
-              <div className="flex items-center justify-between p-2 hover:bg-gray-700">
-                <div className="flex items-center">
-                  <i className="fas fa-money-bill-wave mr-2"></i>
-                  <button onClick={handleCart}>My Cart</button>
-                </div>
-                <i className="fas fa-chevron-down text-xs"></i>
-              </div>
-              {/* <ul className="desplegable ml-4 hidden">
-                <li>
-                  <a href='/cart' className="block p-2 hover:bg-gray-700 flex items-center">
-                    <i className="fas fa-chevron-right mr-2 text-xs"></i>
-                    Tratamientos
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="block p-2 hover:bg-gray-700 flex items-center">
-                    <i className="fas fa-chevron-right mr-2 text-xs"></i>
-                    Gastos
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="block p-2 hover:bg-gray-700 flex items-center">
-                    <i className="fas fa-chevron-right mr-2 text-xs"></i>
-                    Facturas
-                  </a>
-                </li>
-              </ul> */}
-            </li>
+          
             <li className="opcion-con-desplegable">
               <div className="flex items-center justify-between p-2 hover:bg-gray-700">
                 <div className="flex items-center">
@@ -123,29 +90,7 @@ function Dashboard() {
                 </li>
               </ul> */}
             </li>
-            <li className="opcion-con-desplegable">
-              <div className="flex items-center justify-between p-2 hover:bg-gray-700">
-                <div className="flex items-center">
-                  <i className="fas fa-file-alt mr-2"></i>
-                  <span>Guidelines</span>
-                </div>
-                <i className="fas fa-chevron-down text-xs"></i>
-              </div>
-              {/* <ul className="desplegable ml-4 hidden">
-                <li>
-                  <a href="#" className="block p-2 hover:bg-gray-700 flex items-center">
-                    <i className="fas fa-chevron-right mr-2 text-xs"></i>
-                    Purchase guide
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="block p-2 hover:bg-gray-700 flex items-center">
-                    <i className="fas fa-chevron-right mr-2 text-xs"></i>
-                    Terms and Conditions
-                  </a>
-                </li>
-              </ul> */}
-            </li>
+            
           </ul>
         </nav>
       </aside>
@@ -177,4 +122,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default AdminDashboard;
