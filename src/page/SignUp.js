@@ -1,23 +1,70 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import React from 'react'
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import SignupLottie from "./SignupLottie";
+
 
 function SignUp() {
   const [firstName, setFirstname] = useState('');
-  const [lastName, setLastname] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [age,setAge]=useState('');
-  const [phoneNumber,setPhoneNumber]=useState('');
+	const [lastName, setLastname] = useState('');
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+	const [confirmPassword, setConfirmPassword] = useState('');
+	const [age,setAge]=useState('');
+	const[phoneNumber,setPhoneNumber]=useState('');
+	const navigate = useNavigate();
+    const handleFirstNameChange = (e) => {
+		setFirstname(e.target.value);
+	};
+    const handleLastNameChange = (e) => {
+		setLastname(e.target.value);
+	};
 
-  const navigate= useNavigate();
+	const handleEmailChange = (e) => {
+		setEmail(e.target.value);
+	};
 
-  const addCustomer = (e) => {
-    e.preventDefault();
+	const handlePasswordChange = (e) => {
+		setPassword(e.target.value);
+	};
 
-    // Validation
-    if (firstName.trim() === '' || lastName.trim() === '') {
+	const handleConfirmPasswordChange = (e) => {
+		setConfirmPassword(e.target.value);
+	};
+
+	const handleAgeChange = (e) => {
+		setAge(e.target.value);
+	};
+
+	const handlePhoneNumberChange = (e) => {
+		setPhoneNumber(e.target.value);
+	};
+
+    const addCustomer = (e) => {
+
+		const customer = {
+			firstName,
+			lastName,
+			age,
+			email,
+			password,
+			confirmPassword,
+			phoneNumber
+		}
+
+
+		//for checking the age of product
+		if (customer.age < 18) {
+			alert("You are not eligible to buy this item, please enter the valid age");
+		}
+		//if password and confirm password should same
+		if (customer.password !== customer.confirmPassword) {
+			alert("Passwords do not match. Please make sure they match before submitting.");
+			return;
+		}
+
+        if (firstName.trim() === '' || lastName.trim() === '') {
       alert("First Name and Last Name cannot be blank.");
       return;
     }
@@ -47,209 +94,89 @@ function SignUp() {
       return;
     }
 
-    const customer = {
-      firstName,
-      lastName,
-      age,
-      email,
-      password,
-      confirmPassword,
-      phoneNumber
-    }
+		alert(JSON.stringify(customer))
+		console.log(customer)
 
-    // Additional checks for age and phone number
+		// CustomerServices.create(customer)
+		axios.post("http://localhost:8080/api/auth/register", customer).then((response) => {
+			alert("customer added successfully")
+			// console.log("customer added", response.data);
+			navigate('/login');
+		}).catch((error) => {
+			alert("Error ")
+			console.log("error", error.response);
+		})
 
-    if (customer.age < 18) {
-      alert("You are not eligible to buy this item, please enter a valid age");
-      return;
-    }
+	}
 
-    if (customer.phoneNumber.length !== 10) {
-      alert("Invalid phone number. Please enter a 10-digit phone number.");
-      return;
-    }
-
-    axios.post("http://localhost:8080/api/auth/register",customer)
-      .then(response => {
-        alert("Customer added successfully");
-        navigate('/login');
-      })
-      .catch(error => {
-        alert("Error: " + error.message);
-        console.log("error",error.response);
-      });
-  }
-
-  // Handle input changes
-  const handleFirstNameChange = (e) => {
-    setFirstname(e.target.value);
-  };
-
-  const handleLastNameChange = (e) => {
-    setLastname(e.target.value);
-  };
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const handleConfirmPasswordChange = (e) => {
-    setConfirmPassword(e.target.value);
-  };
-
-  const handleAgeChange = (e) => {
-    setAge(e.target.value);
-  };
-
-  const handlePhoneNumberChange = (e) => {
-    setPhoneNumber(e.target.value);
-  };
-
-  return (
-    <div className="font-mono bg-gray-400">
-      <div className="container mx-auto">
-        <div className="flex justify-center px-6 my-12">
-          <div className="w-full xl:w-3/4 lg:w-11/12 flex">
-            <div className="w-full lg:w-7/12 bg-white p-5 rounded-lg lg:rounded-l-none">
-              <h3 className="pt-4 text-2xl text-center">Create an Account!</h3>
-              <form className="px-8 pt-6 pb-8 mb-4 bg-white rounded">
-                <div className="mb-4 md:flex md:justify-between">
-                  <div className="mb-4 md:mr-2 md:mb-0">
-                    <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="firstName">
-                      First Name
-                    </label>
-                    <input
-                      className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                      id="firstName"
-                      type="text"
-                      value={firstName}
-                      placeholder="First Name"
-                      onChange={handleFirstNameChange}
-                    />
-                  </div>
-                  <div className="md:ml-2">
-                    <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="lastName">
-                      Last Name
-                    </label>
-                    <input
-                      className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                      id="lastName"
-                      type="text"
-                      value={lastName}
-                      placeholder="Last Name"
-                      onChange={handleLastNameChange}
-                    />
-                  </div>
+    return (
+        <>
+            <div className="flex h-screen ">
+                <div className="w-1/2">
+                    <SignupLottie></SignupLottie>
                 </div>
-                <div className="mb-4">
-                  <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="email">
-                    Email
-                  </label>
-                  <input
-                    className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                    id="email"
-                    type="email"
-                    value={email}
-                    placeholder="Email"
-                    onChange={handleEmailChange}
-                  />
-                </div>
-                {/* Age and Phone no */}
-                <div className="mb-4 md:flex md:justify-between">
-                  <div className="mb-4 md:mr-2 md:mb-0">
-                    <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="password">
-                      Age
-                    </label>
-                    <input
-                      className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                      id="age"
-                      type="number"
-                      value={age}
-                      placeholder="e.g. 10"
-                      onChange={handleAgeChange}
-                    />
-                  </div>
-                  <div className="md:ml-2">
-                    <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="c_password">
-                      Phone Number
-                    </label>
-                    <input
-                      className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                      id="phone_number"
-                      type="tel"
-                      pattern="[0-9]{10}"
-                      value={phoneNumber}
-                      placeholder="1234567890"
-                      onChange={handlePhoneNumberChange}
-                    />
-                  </div>
-                </div>
+                <div className=" w-1/2 flex justify-center items-center flex-col ">
+                    <form>
+                        <div className="grid gap-6 mb-6 md:grid-cols-2">
+                            <div>
+                                <label htmlFor="firstName" className="block mb-2 text-sm font-medium text-gray-900 dark:black">First name</label>
+                                <input type="text" id="firstName" className="bg-grey-100 border border-gray-500 text-grey-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-black-600 dark:placeholder-grey-400 dark:black dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                                value={firstName}
+                                placeholder="First Name"
+                                onChange={handleFirstNameChange}
+                                required />
+                            </div>
+                            <div>
+                                <label htmlFor="lastName" className="block mb-2 text-sm font-medium text-gray-900 dark:black">Last name</label>
+                                <input type="text" id="lastName" className="bg-grey-100 border border-gray-500 text-grey-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-black-600 dark:placeholder-grey-400 dark:black dark:focus:ring-blue-500 dark:focus:border-blue-500"  onChange={handleLastNameChange}
+                                value={lastName}
+                                placeholder="Last Name" required />
+                            </div>
+                            
+                        </div>
+                        <div className="mb-6">
+                            <label htmlFor="phone_number" className="block mb-2 text-sm font-medium text-gray-900 dark:black">Phone number</label>
+                            <input type="number" id="phone_number"className="bg-grey-100 border border-gray-500 text-grey-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-black-600 dark:placeholder-grey-400 dark:black dark:focus:ring-blue-500 dark:focus:border-blue-500"  
+                            value={phoneNumber}
+                            onChange={handlePhoneNumberChange}
+                            placeholder="+91-123-456-789" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required />
+                        </div>
 
-                <div className="mb-4 md:flex md:justify-between">
-                  <div className="mb-4 md:mr-2 md:mb-0">
-                    <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="password">
-                      Password
-                    </label>
-                    <input
-                      className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                      id="password"
-                      type="password"
-                      value={password}
-                      placeholder="******************"
-                      onChange={handlePasswordChange}
-                    />
-                  </div>
-                  <div className="md:ml-2">
-                    <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="c_password">
-                      Confirm Password
-                    </label>
-                    <input
-                      className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                      id="c_password"
-                      type="password"
-                      value={confirmPassword}
-                      placeholder="******************"
-                      onChange={handleConfirmPasswordChange}
-                    />
-                  </div>
+                        {/* age */}
+                        <div className="mb-6">
+                            <label htmlFor="age" className="block mb-2 text-sm font-medium text-gray-900 dark:black">Age</label>
+                            <input type="number" id="age" className="bg-grey-100 border border-gray-500 text-grey-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-black-600 dark:placeholder-grey-400 dark:black dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                            value={age}
+                            onChange={handleAgeChange}
+                            placeholder="18+" required />
+                        </div>
+                        <div className="mb-6">
+                            <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:black">Email address</label>
+                            <input type="email" id="email" className="bg-grey-100 border border-gray-300 text-grey-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-black-600 dark:placeholder-grey-400 dark:black dark:focus:ring-blue-500 dark:focus:border-blue-500"  onChange={handleEmailChange}
+                            value={email}
+                            placeholder="exapmle@gmail.com" required />
+                        </div>
+                        <div className="mb-6">
+                            <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:black">Password</label>
+                            <input type="password" id="password" className="bg-grey-100 border border-gray-500 text-grey-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-black-600 dark:placeholder-grey-400 dark:black dark:focus:ring-blue-500 dark:focus:border-blue-500"  
+                            value={password}
+                            onChange={handlePasswordChange}
+                            placeholder="•••••••••" required />
+                        </div>
+                        <div className="mb-6">
+                            <label htmlFor="confirm_password" className="block mb-2 text-sm font-medium text-gray-900 dark:black">Confirm password</label>
+                            <input type="password" id="confirm_password" className="bg-grey-100 border border-gray-500 text-grey-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-black-600 dark:placeholder-grey-400 dark:black dark:focus:ring-blue-500 dark:focus:border-blue-500"  onChange={handleConfirmPasswordChange}
+                            value={confirmPassword}
+                            placeholder="•••••••••" required />
+                        </div>
+                        <button type="submit"
+                        onClick={(e) => addCustomer(e)}
+                        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+                    </form>
                 </div>
-                <div className="mb-6 text-center">
-                  <button
-                    className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
-                    type="submit"
-                    onClick={addCustomer}
-                  >
-                    Register Account
-                  </button>
-                </div>
-                <hr className="mb-6 border-t" />
-                <div className="text-center">
-                  <a
-                    className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
-                    href="#"
-                  >
-                    Forgot Password?
-                  </a>
-                </div>
-                <div className="text-center">
-                  <a
-                    className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
-                    href="/login"
-                  >
-                    Already have an account? Login!
-                  </a>
-                </div>
-              </form>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+        </>
+    );
 }
 
 export default SignUp;

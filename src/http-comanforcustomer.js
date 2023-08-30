@@ -1,9 +1,9 @@
-import axios from 'axios';
+import axios from "axios";
 
-const httpClient=axios.create({
-  baseURL: 'http://localhost:8080/customer',
+const httpClient = axios.create({
+  baseURL: "http://localhost:8080/customer",
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
 });
 export default httpClient;

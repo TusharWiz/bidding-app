@@ -17,8 +17,7 @@ function AdminDashboard() {
   // }, []);
 
  const handleGetCustomers=()=>{
-    alert("get customers")
-    navigate('');
+    navigate('/getCustomers');
  }
 
   const handleSignOut = ()=>{
@@ -35,7 +34,7 @@ function AdminDashboard() {
           <h1 className="text-white text-xl font-semibold ml-4">DreamDeal</h1>
         </div>
         <div className="flex items-center space-x-4">
-          <i className="fas fa-user-circle text-white text-2xl"></i>
+          <i className="fas fa-user-circle text-white text-2xl">Admin</i>
         </div>
       </nav>
       <div className="flex h-screen">

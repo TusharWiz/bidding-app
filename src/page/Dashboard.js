@@ -17,18 +17,18 @@ function Dashboard() {
   // }, []);
 
   const handleCart = ()=>{
-    alert("cart")
+    
     navigate("/cart")
   }
 
   const handleSignOut = ()=>{
-    alert("Sign out")
+    
     localStorage.removeItem("token")
     navigate("/login")
   }
 
   const handleUpdate=()=>{
-    alert("update")
+    
     navigate('/update')
   }
 

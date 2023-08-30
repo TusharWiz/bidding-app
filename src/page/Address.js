@@ -29,12 +29,12 @@ const handleSubmit=(e)=>{
 	//   }).catch((error)=>{
 	// 	alert("error in fetching customer");
 	//   }).then(
-	alert(customerId)
+	
     axios.post(`http://localhost:8080/address/${customerId}`,addresses)
     .then((response)=>{
-		alert(JSON.stringify(addresses))
-        alert("added to address table")
+        alert("Address added")
         console.log("added to address table");
+		navigate("/products");
 	
     }).catch((error)=>{
 		alert(JSON.stringify(addresses))

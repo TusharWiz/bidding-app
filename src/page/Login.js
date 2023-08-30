@@ -33,6 +33,8 @@ function Login({ setIsLoginPage }) {
             const role = localStorage.getItem("role");
         if(role === "ROLE_NORMAL"){
             navigate("/dashBoard")
+        }else{
+            navigate("/admin")
         }
             //navigate(`/`);
         }).catch((error)=>{

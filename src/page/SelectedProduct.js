@@ -49,7 +49,7 @@ function SelectedProduct() {
     const decodedToken = jwt_decode(userId);
     const customerId = decodedToken.userId;
 
-    alert(customerId)
+    
 
     axios.post(`http://localhost:8080/cart/addProduct/${productId}/${customerId}`)
       .then((response) => {

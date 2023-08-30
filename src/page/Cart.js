@@ -11,11 +11,10 @@ const Cart = () => {
     const [name, setName] = useState("");
     const navigate= useNavigate();  
     useEffect(() => {
-
-      const userId = localStorage.getItem("token");
+    const userId = localStorage.getItem("token");
     const decodedToken = jwt_decode(userId);
     const customerId = decodedToken.userId;
-    alert(customerId)
+   
       axios
       //TODO user id
         .get(`http://localhost:8080/cart/cartDetails/${customerId}`)
@@ -33,8 +32,7 @@ const Cart = () => {
       const userId = localStorage.getItem("token");
       const decodedToken = jwt_decode(userId);
       const customerId = decodedToken.userId;
-      alert(customerId);
-      alert(productId);
+
       axios
          .put(`http://localhost:8080/cart/removeItem/${customerId}/${productId}`)
         
@@ -69,11 +67,7 @@ const Cart = () => {
     const displayRazorPay = async (amount) => {
      
       try{
-
-        
-        alert(amount)
         const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
-        alert(res)
         if (!res) {
           alert("Failed to load Razorpay script. Please check your internet connection.");
           return;
